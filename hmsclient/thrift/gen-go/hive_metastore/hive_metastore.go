@@ -8170,7 +8170,7 @@ func (p *SkewedInfo) String() string {
 //  - StoredAsSubDirectories
 type StorageDescriptor struct {
 	Cols                   []*FieldSchema    `thrift:"cols,1" db:"cols" json:"cols"`
-	Location               string            `thrift:"location,2" db:"location" json:"location"`
+	Location               *string           `thrift:"location,2" db:"location" json:"location,omitempty"`
 	InputFormat            string            `thrift:"inputFormat,3" db:"inputFormat" json:"inputFormat"`
 	OutputFormat           string            `thrift:"outputFormat,4" db:"outputFormat" json:"outputFormat"`
 	Compressed             bool              `thrift:"compressed,5" db:"compressed" json:"compressed"`
@@ -8191,8 +8191,13 @@ func (p *StorageDescriptor) GetCols() []*FieldSchema {
 	return p.Cols
 }
 
+var StorageDescriptor_Location_DEFAULT string
+
 func (p *StorageDescriptor) GetLocation() string {
-	return p.Location
+	if !p.IsSetLocation() {
+		return StorageDescriptor_Location_DEFAULT
+	}
+	return *p.Location
 }
 
 func (p *StorageDescriptor) GetInputFormat() string {
@@ -8249,6 +8254,10 @@ func (p *StorageDescriptor) GetStoredAsSubDirectories() bool {
 	}
 	return *p.StoredAsSubDirectories
 }
+func (p *StorageDescriptor) IsSetLocation() bool {
+	return p.Location != nil
+}
+
 func (p *StorageDescriptor) IsSetSerdeInfo() bool {
 	return p.SerdeInfo != nil
 }
@@ -8434,7 +8443,7 @@ func (p *StorageDescriptor) ReadField2(ctx context.Context, iprot thrift.TProtoc
 	if v, err := iprot.ReadString(ctx); err != nil {
 		return thrift.PrependError("error reading field 2: ", err)
 	} else {
-		p.Location = v
+		p.Location = &v
 	}
 	return nil
 }
@@ -8643,14 +8652,16 @@ func (p *StorageDescriptor) writeField1(ctx context.Context, oprot thrift.TProto
 }
 
 func (p *StorageDescriptor) writeField2(ctx context.Context, oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin(ctx, "location", thrift.STRING, 2); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 2:location: ", p), err)
-	}
-	if err := oprot.WriteString(ctx, string(p.Location)); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T.location (2) field write error: ", p), err)
-	}
-	if err := oprot.WriteFieldEnd(ctx); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 2:location: ", p), err)
+	if p.IsSetLocation() {
+		if err := oprot.WriteFieldBegin(ctx, "location", thrift.STRING, 2); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field begin error 2:location: ", p), err)
+		}
+		if err := oprot.WriteString(ctx, string(*p.Location)); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T.location (2) field write error: ", p), err)
+		}
+		if err := oprot.WriteFieldEnd(ctx); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field end error 2:location: ", p), err)
+		}
 	}
 	return err
 }
@@ -8832,7 +8843,12 @@ func (p *StorageDescriptor) Equals(other *StorageDescriptor) bool {
 		}
 	}
 	if p.Location != other.Location {
-		return false
+		if p.Location == nil || other.Location == nil {
+			return false
+		}
+		if (*p.Location) != (*other.Location) {
+			return false
+		}
 	}
 	if p.InputFormat != other.InputFormat {
 		return false

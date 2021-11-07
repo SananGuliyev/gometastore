@@ -77,7 +77,7 @@ func (tb *TableBuilder) Build() *hive_metastore.Table {
 		Sd: &hive_metastore.StorageDescriptor{
 			InputFormat:  tb.InputFormat,
 			OutputFormat: tb.OutputFormat,
-			Location:     tb.Location,
+			Location:     &tb.Location,
 			Cols:         convertSchema(tb.Columns),
 			SerdeInfo: &hive_metastore.SerDeInfo{
 				Name:             tb.Name,
@@ -173,14 +173,15 @@ func (p *PartitionBuilder) Build() *hive_metastore.Partition {
 	partitionKeys := p.Table.PartitionKeys
 	sd := *p.Table.Sd
 	if p.Location != "" {
-		sd.Location = p.Location
+		sd.Location = &p.Location
 	} else {
 		// Construct name=value list for each partition
 		partNames := make([]string, len(partitionKeys))
 		for i, p := range partitionKeys {
 			partNames[i] = p.Name + "=" + values[i]
 		}
-		sd.Location = sd.Location + "/" + strings.Join(partNames, "/")
+		sdLocation := *sd.Location + "/" + strings.Join(partNames, "/")
+		sd.Location = &sdLocation
 	}
 	return &hive_metastore.Partition{
 		Values:     values,
