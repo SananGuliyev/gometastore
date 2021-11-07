@@ -295,7 +295,7 @@ struct SkewedInfo {
 // this object holds all the information about physical storage of the data belonging to a table
 struct StorageDescriptor {
   1: list<FieldSchema> cols,  // required (refer to types defined above)
-  2: string location,         // defaults to <warehouse loc>/<db loc>/tablename
+  2: optional string location,         // defaults to <warehouse loc>/<db loc>/tablename
   3: string inputFormat,      // SequenceFileInputFormat (binary) or TextInputFormat`  or custom format
   4: string outputFormat,     // SequenceFileOutputFormat (binary) or IgnoreKeyTextOutputFormat or custom format
   5: bool   compressed,       // compressed or not
