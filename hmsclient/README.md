@@ -7,20 +7,20 @@ This is the Hive metastore client library for Golang
 Standard `go get`:
 
 ```
-$ go get github.com/akolb1/gometastore/hmsbench
+$ go get github.com/SananGuliyev/gometastore/hmsbench
 ```
 
 ## Usage & Example
 
 For API usage and examples, see
-[![GoDoc](https://godoc.org/github.com/akolb1/gometastore/hmsclient?status.svg)](https://godoc.org/github.com/akolb1/gometastore/hmsclient)
+[![GoDoc](https://godoc.org/github.com/SananGuliyev/gometastore/hmsclient?status.svg)](https://godoc.org/github.com/SananGuliyev/gometastore/hmsclient)
 
 
 ## Example usage:
 
     import	(
         "log"
-        "github.com/akolb1/gometastore/hmsclient"
+        "github.com/SananGuliyev/gometastore/hmsclient"
     )
     
     func printDatabases() {

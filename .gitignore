@@ -18,3 +18,5 @@ hmsbench/hmsbench
 hmstool/hmstool
 hmsweb/hmsweb
 
+# vendor folder
+/vendor

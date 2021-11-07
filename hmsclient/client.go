@@ -21,7 +21,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/akolb1/gometastore/hmsclient/thrift/gen-go/hive_metastore"
+	"github.com/SananGuliyev/gometastore/hmsclient/thrift/gen-go/hive_metastore"
 	"github.com/apache/thrift/lib/go/thrift"
 )
 

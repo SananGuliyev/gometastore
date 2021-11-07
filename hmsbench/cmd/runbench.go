@@ -23,8 +23,8 @@ import (
 	"path"
 	"regexp"
 
-	"github.com/akolb1/gometastore/hmsclient"
-	"github.com/akolb1/gometastore/microbench"
+	"github.com/SananGuliyev/gometastore/hmsclient"
+	"github.com/SananGuliyev/gometastore/microbench"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
