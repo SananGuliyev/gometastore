@@ -18,8 +18,8 @@ import (
 	"log"
 	"strings"
 
-	"github.com/akolb1/gometastore/hmsclient"
-	"github.com/akolb1/gometastore/hmsclient/thrift/gen-go/hive_metastore"
+	"github.com/SananGuliyev/gometastore/hmsclient"
+	"github.com/SananGuliyev/gometastore/hmsclient/thrift/gen-go/hive_metastore"
 	"github.com/spf13/cobra"
 )
 

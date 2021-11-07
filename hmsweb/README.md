@@ -2,7 +2,7 @@
 
 ## Installation
 
-`go get github.com/akolb1/gometastore/hmsweb`
+`go get github.com/SananGuliyev/gometastore/hmsweb`
 
 ## Starting web server
 
